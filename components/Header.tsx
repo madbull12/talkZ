@@ -15,7 +15,7 @@ const Header = () => {
     console.log(session)
   return (
     //header component
-    <nav className="sm:p-[12px] p-2 md:p-4  border-b border-gray-800">
+    <nav className="sm:p-[12px] p-2 md:p-4  border-b border-gray-800  bg-[#0F172A] ">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
             <div className="font-semibold cursor-pointer text-base sm:text-lg md:text-2xl tracking-wide text-white">
                 talk
@@ -28,7 +28,7 @@ const Header = () => {
                 {/* <p>{session?.user?.name}</p> */}
                 {session ? (
                     <>
-                        <Image  src={session?.user?.image} alt={session?.user?.name} width={35} height={35} className="w-10 h-10 rounded-full" objectFit="cover" />
+                        <Image src={session?.user?.image} alt={session?.user?.name} width={"32"} height={"32"} className="rounded-full" objectFit="cover" />
                         <button onClick={() => signOut()} className="text-gray-400 hidden md:flex font-semibold text-xs sm:text-sm bg-[#1E293B] border-t rounded-xl whitespace-nowrap border-gray-700 md:text-base px-2 md:px-4 p-[4px] sm:py-2 shadow-md">
                             Sign Out
                         </button>

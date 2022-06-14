@@ -1,0 +1,230 @@
+type TalkZ_post {
+  body: String
+  created_at: DateTime
+  id: ID!
+  image: String
+  subtalkz_id: ID
+  talkZ_subtalkz: TalkZ_subtalkz
+    @materializer(
+      query: "getTalkZ_subtalkz"
+      arguments: [{ name: "id", field: "subtalkz_id" }]
+    )
+  talkz_commentList: [Talkz_comment]
+    @materializer(query: "getTalkz_commentUsingPost_id")
+  talkz_voteList: [Talkz_vote] @materializer(query: "getTalkz_voteUsingPost_id")
+  title: String
+  username: String
+}
+
+type TalkZ_subtalkz {
+  created_at: DateTime
+  id: ID!
+  talkZ_postList: [TalkZ_post]
+    @materializer(query: "getTalkZ_postUsingSubtalkz_id")
+  topic: String
+}
+
+type Talkz_comment {
+  created_at: DateTime
+  id: ID!
+  post_id: ID
+  talkZ_post: TalkZ_post
+    @materializer(
+      query: "getTalkZ_post"
+      arguments: [{ name: "id", field: "post_id" }]
+    )
+  text: String
+  username: String
+}
+
+type Talkz_vote {
+  created_at: DateTime
+  id: ID!
+  post_id: ID
+  talkZ_post: TalkZ_post
+    @materializer(
+      query: "getTalkZ_post"
+      arguments: [{ name: "id", field: "post_id" }]
+    )
+  upvote: Boolean
+  username: String
+}
+
+"""
+These are some examples of queries generated from the schema. Feel free to modify them or add your own.
+"""
+type Query {
+  getTalkZ_postList: [TalkZ_post]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkZ_post"
+      configuration: "postgresql_config"
+    )
+  getTalkZ_post(id: ID!): TalkZ_post
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkZ_post"
+      configuration: "postgresql_config"
+    )
+  getTalkz_commentUsingPost_id(id: ID!): [Talkz_comment]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      SELECT T."created_at", T."id", T."post_id", T."text", T."username"
+        FROM "public"."talkz_comment" T
+        WHERE T."post_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  getTalkz_voteUsingPost_id(id: ID!): [Talkz_vote]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      SELECT T."created_at", T."id", T."post_id", T."upvote", T."username"
+        FROM "public"."talkz_vote" T
+        WHERE T."post_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  getTalkZ_subtalkzList: [TalkZ_subtalkz]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkZ_subtalkz"
+      configuration: "postgresql_config"
+    )
+  getTalkZ_subtalkz(id: ID!): TalkZ_subtalkz
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkZ_subtalkz"
+      configuration: "postgresql_config"
+    )
+  getTalkZ_postUsingSubtalkz_id(id: ID!): [TalkZ_post]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      SELECT T."body", T."created_at", T."id", T."image", T."subtalkz_id", T."title", T."username"
+        FROM "public"."talkZ_post" T
+        WHERE T."subtalkz_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  getTalkz_commentList: [Talkz_comment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkz_comment"
+      configuration: "postgresql_config"
+    )
+  getTalkz_comment(id: ID!): Talkz_comment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkz_comment"
+      configuration: "postgresql_config"
+    )
+  getTalkz_voteList: [Talkz_vote]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkz_vote"
+      configuration: "postgresql_config"
+    )
+  getTalkz_vote(id: ID!): Talkz_vote
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkz_vote"
+      configuration: "postgresql_config"
+    )
+}
+
+"""
+These are some examples of mutations generated from the schema. Feel free to modify them or add your own.
+"""
+type Mutation {
+  insertTalkZ_post(
+    image: String!
+    created_at: DateTime!
+    subtalkz_id: ID!
+    body: String!
+    title: String!
+    username: String!
+  ): TalkZ_post
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkZ_post"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  deleteTalkZ_post(id: ID!): TalkZ_post
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkZ_post"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertTalkZ_subtalkz(created_at: DateTime!, topic: String!): TalkZ_subtalkz
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkZ_subtalkz"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  deleteTalkZ_subtalkz(id: ID!): TalkZ_subtalkz
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkZ_subtalkz"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertTalkz_comment(
+    post_id: ID!
+    text: String!
+    created_at: DateTime!
+    username: String!
+  ): Talkz_comment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkz_comment"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  deleteTalkz_comment(id: ID!): Talkz_comment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkz_comment"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertTalkz_vote(
+    post_id: ID!
+    created_at: DateTime!
+    upvote: Boolean!
+    username: String!
+  ): Talkz_vote
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkz_vote"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  deleteTalkz_vote(id: ID!): Talkz_vote
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkz_vote"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+}
