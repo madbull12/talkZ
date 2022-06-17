@@ -23,7 +23,7 @@ const Header = () => {
                 {/* <p>{session?.user?.name}</p> */}
                 {session ? (
                     <>
-                        <Image src={session?.user?.image} alt={session?.user?.name} width={"32"} height={"32"} className="rounded-full" objectFit="cover" />
+                        <Image src={session?.user?.image || "dsds"} alt={session?.user?.name || "profile"} width={"32"} height={"32"} className="rounded-full" objectFit="cover" />
                         <button onClick={() => signOut()} className="text-gray-400 hidden md:flex font-semibold text-xs sm:text-sm bg-[#1E293B] border-t rounded-xl whitespace-nowrap border-gray-700 md:text-base px-2 md:px-4 p-[4px] sm:py-2 shadow-md">
                             Sign Out
                         </button>

@@ -10,8 +10,14 @@ type TalkZ_post {
       arguments: [{ name: "id", field: "subtalkz_id" }]
     )
   talkz_commentList: [Talkz_comment]
-    @materializer(query: "getTalkz_commentUsingPost_id")
-  talkz_voteList: [Talkz_vote] @materializer(query: "getTalkz_voteUsingPost_id")
+    @materializer(
+      query: "getTalkz_commentUsingPost_id"
+      arguments: [{ name:"post_id",field:"id" }]
+    )
+  talkz_voteList: [Talkz_vote] @materializer(
+    query: "getTalkz_voteUsingPost_id"
+    arguments: [{ name:"post_id",field:"id" }]
+  )
   title: String
   username: String
 }
@@ -50,9 +56,9 @@ type Talkz_vote {
   username: String
 }
 
-"""
-These are some examples of queries generated from the schema. Feel free to modify them or add your own.
-"""
+
+
+
 type Query {
   getTalkZ_postList: [TalkZ_post]
     @dbquery(
@@ -95,6 +101,17 @@ type Query {
       table: "talkZ_subtalkz"
       configuration: "postgresql_config"
     )
+
+  getTalkz_subtalkzListbyTopic(topic: String!): [TalkZ_subtalkz]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        select * from "talkZ_subtalkz" where "topic" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  
   getTalkZ_subtalkz(id: ID!): TalkZ_subtalkz
     @dbquery(
       type: "postgresql"
@@ -148,7 +165,6 @@ These are some examples of mutations generated from the schema. Feel free to mod
 type Mutation {
   insertTalkZ_post(
     image: String!
-    created_at: DateTime!
     subtalkz_id: ID!
     body: String!
     title: String!
@@ -169,10 +185,9 @@ type Mutation {
       dml: DELETE
       configuration: "postgresql_config"
     )
-  insertTalkZ_subtalkz(created_at: DateTime!, topic: String!): TalkZ_subtalkz
+  insertTalkZ_subtalkz(topic: String!): TalkZ_subtalkz
     @dbquery(
       type: "postgresql"
-      schema: "public"
       table: "talkZ_subtalkz"
       dml: INSERT
       configuration: "postgresql_config"

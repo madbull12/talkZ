@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import CreatePost from '../components/CreatePost'
 import Header from '../components/Header'
+import HomeFeed from '../components/HomeFeed'
 
 
 const Home: NextPage = () => {
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
       </Head>
       <div className=' pt-20 relative'>
         <CreatePost />
+        <HomeFeed />
       </div>
 
    
