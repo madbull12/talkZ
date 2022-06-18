@@ -4,10 +4,16 @@ type TalkZ_post {
   id: ID!
   image: String
   subtalkz_id: ID
+  user_id:ID,
   talkZ_subtalkz: TalkZ_subtalkz
     @materializer(
       query: "getTalkZ_subtalkz"
       arguments: [{ name: "id", field: "subtalkz_id" }]
+    )
+  talkZ_user: Talkz_user
+    @materializer(
+      query: "getTalkz_user"
+      arguments: [{ name: "id",field: "user_id" }]
     )
   talkz_commentList: [Talkz_comment]
     @materializer(
@@ -35,10 +41,13 @@ type Talkz_comment {
   id: ID!
   post_id: ID
   talkZ_post: TalkZ_post
-    @materializer(
-      query: "getTalkZ_post"
-      arguments: [{ name: "id", field: "post_id" }]
-    )
+
+
+  @materializer(
+    query: "getTalkZ_post"
+    arguments: [{ name: "id", field: "post_id" }]
+  )
+
   text: String
   username: String
 }
@@ -56,8 +65,13 @@ type Talkz_vote {
   username: String
 }
 
-
-
+type Talkz_user {
+    created_at: DateTime
+    id: ID!
+    email:String
+    name:String
+    image:String
+}
 
 type Query {
   getTalkZ_postList: [TalkZ_post]
@@ -84,6 +98,9 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
+
+
   getTalkz_voteUsingPost_id(id: ID!): [Talkz_vote]
     @dbquery(
       type: "postgresql"
@@ -157,6 +174,26 @@ type Query {
       table: "talkz_vote"
       configuration: "postgresql_config"
     )
+
+    getTalkz_user(id:ID!): Talkz_user 
+      @dbquery(
+        type: "postgresql"
+        schema: "public"
+        table: "talkz_user"
+        configuration: "postgresql_config"
+    )
+
+    getTalkz_userListByEmail(email:String!): [Talkz_user]
+      @dbquery(
+        type: "postgresql"
+        schema: "public"
+        query: """
+            select * from "talkz_user" where "email" = $1
+        """
+        configuration: "postgresql_config"
+    )
+    
+
 }
 
 """
@@ -240,6 +277,18 @@ type Mutation {
       schema: "public"
       table: "talkz_vote"
       dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertTalkz_user(
+    name:String!
+    email:String!
+    image:String!
+  ):Talkz_user 
+   @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkz_user"
+      dml: INSERT
       configuration: "postgresql_config"
     )
 }

@@ -35,3 +35,21 @@ export const ADD_SUBTALKZ = gql`
     }
  }
 `
+
+export const ADD_NEW_USER = gql`
+    mutation MyMutation(
+        $name:String!
+        $email:String!
+        $image:String!
+    ) {
+        insertTalkz_user(
+            name:$name
+            email:$email
+            image:$image
+        ) {
+            name
+            email
+            image
+        }
+    }
+`

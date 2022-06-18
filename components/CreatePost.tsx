@@ -99,7 +99,7 @@ const CreatePost = () => {
     }
 
   return (
-    <section className=" max-w-3xl mx-auto  min-h-screen relative">
+    <section className="   relative">
         <div className="bg-[#1E293B]  sticky z-50  top-20 rounded-xl mt-4 text-gray-400 border-t border-gray-700 shadow-md px-2 md:px-4 py-1 md:py-2 font-semibold flex items-center gap-2">
             {session && (
                 <Image width={35} height={35} src={session?.user?.image || "sdsds"} alt={session?.user?.name || "profile"} objectFit="cover" className="rounded-full" />
@@ -111,7 +111,7 @@ const CreatePost = () => {
             </div>
         </div>
         {title && (
-            <div className="min-h-screen p-4 text-gray-400 w-full">
+            <div className="p-4 text-gray-400 w-full">
                 <form onSubmit={(e) => {
                     e.preventDefault();
                     handleSubmit();
@@ -123,13 +123,13 @@ const CreatePost = () => {
                     </div>
                     <div className=" flex gap-x-2 items-center">
                         <label className="min-w-[80px]">Subtalkz:</label>
-                        <input onChange={(e) => setSubtalkz(e.target.value)} type="text" placeholder="ie programming" required className="px-2 md:px-4 py-1 md:py-2 w-full bg-[#1E293B] outline-none  border-t border-gray-700 shadow-md"  />
+                        <input onChange={(e) => setSubtalkz(e.target.value)} type="text" placeholder="Discussion's topic ie programming" required className="px-2 md:px-4 py-1 md:py-2 w-full bg-[#1E293B] outline-none  border-t border-gray-700 shadow-md"  />
 
                     </div>
                     {imageBox && (
                         <div className=" flex items-center gap-x-2">
                             <label className="min-w-[80px] whitespace-nowrap">Image URL:</label>
-                            <input onChange={(e) => setImageUrl(e.target.value)} type="text" placeholder="Optional" className="px-2 md:px-4 py-1 md:py-2 w-full bg-[#1E293B] outline-none  border-t border-gray-700 shadow-md"  />
+                            <input onChange={(e) => setImageUrl(e.target.value)} type="text" placeholder="Drop an image URL here(optional)" className="px-2 md:px-4 py-1 md:py-2 w-full bg-[#1E293B] outline-none  border-t border-gray-700 shadow-md"  />
 
                         </div>
                     )}

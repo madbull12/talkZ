@@ -17,6 +17,7 @@ query MyQuery {
       post_id
       id
       created_at
+
     }
     talkz_voteList {
       upvote
@@ -26,6 +27,11 @@ query MyQuery {
     }
     title
     username
+    talkZ_user {
+      image,
+      id,
+      name
+    }
   }
 }
 
@@ -42,4 +48,15 @@ export const GET_SUBTALKZ_BY_TOPIC = gql`
     }
 
 `
+
+export const GET_USER_BY_EMAIL = gql`
+  query MyQuery($email:String!) {
+    getTalkz_userListByEmail(email:$email) {
+      name
+      email
+      image
+    }
+  }
+`
+
 
