@@ -17,6 +17,11 @@ query MyQuery {
       post_id
       id
       created_at
+      talkZ_user {
+        image
+        id
+        name
+      }
 
     }
     talkz_voteList {
@@ -51,12 +56,51 @@ export const GET_SUBTALKZ_BY_TOPIC = gql`
 
 export const GET_USER_BY_EMAIL = gql`
   query MyQuery($email:String!) {
-    getTalkz_userListByEmail(email:$email) {
+    getTalkz_userByEmail(email:$email) {
       name
       email
       image
+      id
     }
   }
 `
 
+export const GET_POST_BY_ID = gql`
+  query MyQuery($id:ID!) {
+  getTalkZ_post(id:$id) {
+    image
+    created_at
+    subtalkz_id
+    title
+    user_id
+    username
+    talkZ_user {
+      image
+      name
+      id
+      email
+    }
+  }
+}
+
+`
+export const GET_POST_BY_TOPIC = gql`
+  query MyQuery($topic:String!) {
+    getTalkZ_postListByTopic(topic:$topic) {
+    image
+    created_at
+    subtalkz_id
+    title
+    user_id
+    username
+    talkZ_user {
+      image
+      name
+      id
+      email
+    }
+  }
+}
+
+`
 

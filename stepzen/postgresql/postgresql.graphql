@@ -41,12 +41,17 @@ type Talkz_comment {
   id: ID!
   post_id: ID
   talkZ_post: TalkZ_post
-
-
   @materializer(
     query: "getTalkZ_post"
     arguments: [{ name: "id", field: "post_id" }]
   )
+  user_id:ID
+  talkZ_user:Talkz_user
+  @materializer(
+    query: "getTalkz_user"
+    arguments: [{ name: "id", field: "user_id" }]
+  )
+
 
   text: String
   username: String
@@ -77,8 +82,10 @@ type Query {
   getTalkZ_postList: [TalkZ_post]
     @dbquery(
       type: "postgresql"
-      schema: "public"
-      table: "talkZ_post"
+    
+      query:"""
+        select * from "talkZ_post" ORDER by "created_at" desc
+      """
       configuration: "postgresql_config"
     )
   getTalkZ_post(id: ID!): TalkZ_post
@@ -92,9 +99,7 @@ type Query {
     @dbquery(
       type: "postgresql"
       query: """
-      SELECT T."created_at", T."id", T."post_id", T."text", T."username"
-        FROM "public"."talkz_comment" T
-        WHERE T."post_id" = $1
+        select * from "talkz_comment" where "post_id" = $1
       """
       configuration: "postgresql_config"
     )
@@ -146,6 +151,17 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+    getTalkZ_postListByTopic(topic:String!): [TalkZ_post]
+      @dbquery(
+        type: "postgresql"
+        query: """
+          select * from "talkZ_post"
+          join "talkZ_subtalkz" on "talkZ_subtalkz"."id" = "talkZ_post"."subtalkz_id"
+          where "talkZ_subtalkz"."topic" = $1
+          order by "talkZ_post"."created_at" desc
+      """
+      configuration: "postgresql_config"
+      )
   getTalkz_commentList: [Talkz_comment]
     @dbquery(
       type: "postgresql"
@@ -183,7 +199,7 @@ type Query {
         configuration: "postgresql_config"
     )
 
-    getTalkz_userListByEmail(email:String!): [Talkz_user]
+    getTalkz_userByEmail(email:String!): Talkz_user
       @dbquery(
         type: "postgresql"
         schema: "public"
@@ -206,6 +222,7 @@ type Mutation {
     body: String!
     title: String!
     username: String!
+    user_id:ID!
   ): TalkZ_post
     @dbquery(
       type: "postgresql"

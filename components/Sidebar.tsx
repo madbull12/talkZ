@@ -9,7 +9,7 @@ const Sidebar = () => {
     <div className="fixed w-[220px] space-y-3   top-16 left-0  h-screen bg-transparent  px-4 pt-8 z-50 text-gray-400">
       <p className="text-sm font-bold">MENU</p>
       <ul className="space-y-3">
-        <li className={` flex items-center gap-x-2 ${router.pathname === "/" ? "text-[#0EA5E9] font-bold" : ""}`}>
+        <li className={` flex items-center gap-x-2 ${router.pathname === "/" ? "text-  font-bold" : ""}`}>
           <AiOutlineHome />
           <Link href="/" >Home</Link>
         </li>

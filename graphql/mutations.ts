@@ -7,6 +7,7 @@ export const ADD_POST = gql`
         $subtalkz_id:ID!
         $title:String!
         $username:String!
+        $user_id:ID!
     ) {
         insertTalkZ_post(
             body: $body
@@ -14,6 +15,7 @@ export const ADD_POST = gql`
             subtalkz_id: $subtalkz_id
             title: $title
             username: $username
+            user_id:$user_id
         ) {
             body
             created_at
@@ -22,6 +24,7 @@ export const ADD_POST = gql`
             subtalkz_id
             title
             username
+            user_id
 
         }
     }

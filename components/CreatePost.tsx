@@ -5,10 +5,14 @@ import { useState } from "react";
 import { BsImages,BsLink45Deg } from 'react-icons/bs'
 import client from "../apollo-client";
 import { ADD_POST, ADD_SUBTALKZ } from "../graphql/mutations";
-import { GET_SUBTALKZ_BY_TOPIC } from "../graphql/queries";
+import { GET_ALL_POSTS, GET_SUBTALKZ_BY_TOPIC, GET_USER_BY_EMAIL } from "../graphql/queries";
 import toast from 'react-hot-toast';
 
-const CreatePost = () => {
+type Props = {
+    topic?:string
+}
+
+const CreatePost = ({ topic }:Props) => {
     const { data:session } = useSession();
 
     const [title,setTitle] = useState<string>("");
@@ -17,7 +21,9 @@ const CreatePost = () => {
     const [imageUrl,setImageUrl] = useState<string>("");
     const [imageBox,setImageBox] = useState<boolean>(false);
 
-    const[addPost]= useMutation(ADD_POST);
+    const[addPost]= useMutation(ADD_POST,{
+        refetchQueries:[GET_ALL_POSTS]
+    });
     const[addSubtalkz] = useMutation(ADD_SUBTALKZ);
 
 
@@ -35,11 +41,17 @@ const CreatePost = () => {
             const { data: { getTalkz_subtalkzListbyTopic } } = await client.query({
                 query: GET_SUBTALKZ_BY_TOPIC,
                 variables: {
-                    topic:subtalkz
+                    topic:topic || subtalkz
                 }
             })
 
-            console.log(getTalkz_subtalkzListbyTopic)
+            
+            const { data: {  getTalkz_userByEmail } } = await client.query({
+                query: GET_USER_BY_EMAIL,
+                variables: {
+                    email:session?.user?.email
+                }
+            })
 
             const subtalkzExists = getTalkz_subtalkzListbyTopic.length>0
 
@@ -49,6 +61,8 @@ const CreatePost = () => {
                         topic:subtalkz
                     }
                 })
+   
+              
 
                 const image = imageUrl || "";
 
@@ -58,8 +72,8 @@ const CreatePost = () => {
                         image,
                         subtalkz_id:newSubtalkz.id,
                         title,
-                        username:session?.user?.name
-
+                        username:session?.user?.name,
+                        user_id:getTalkz_userByEmail.id
                     }
                  })
 
@@ -98,13 +112,17 @@ const CreatePost = () => {
         }
     }
 
+    const uploadImage = (files:any) => {
+        console.log(files[0])
+    }
+
   return (
     <section className="   relative">
         <div className="bg-[#1E293B]  sticky z-50  top-20 rounded-xl mt-4 text-gray-400 border-t border-gray-700 shadow-md px-2 md:px-4 py-1 md:py-2 font-semibold flex items-center gap-2">
             {session && (
                 <Image width={35} height={35} src={session?.user?.image || "sdsds"} alt={session?.user?.name || "profile"} objectFit="cover" className="rounded-full" />
             )}
-            <input disabled={!session} onChange={(e)=>setTitle(e.target.value)} value={title} className="bg-transparent text-gray-400 w-full outline-none" placeholder={session ? "Create a post by typing a title" : "Please login first"} />
+            <input disabled={!session} onChange={(e)=>setTitle(e.target.value)} value={title} className="bg-transparent text-gray-400 w-full outline-none" placeholder={topic ? "Create a post regarding this subtalkz"  : session ? "Create a post by typing a title" : "Please login first"} />
             <div className="flex items-center gap-x-2">
                 <BsImages  className={`hover:text-[#0EA5E9] ${imageBox && "text-[#0EA5E9]"}`} onClick={()=>setImageBox(!imageBox)} />
                 <BsLink45Deg className="hover:text-[#0EA5E9]" />
@@ -121,14 +139,18 @@ const CreatePost = () => {
                         <input onChange={(e) => setBody(e.target.value)} type="text" placeholder="Text(optional)" className="px-2 md:px-4 py-1 md:py-2 w-full bg-[#1E293B] outline-none  border-t border-gray-700 shadow-md" />
 
                     </div>
-                    <div className=" flex gap-x-2 items-center">
-                        <label className="min-w-[80px]">Subtalkz:</label>
-                        <input onChange={(e) => setSubtalkz(e.target.value)} type="text" placeholder="Discussion's topic ie programming" required className="px-2 md:px-4 py-1 md:py-2 w-full bg-[#1E293B] outline-none  border-t border-gray-700 shadow-md"  />
+                    {!topic && (
+                        <div className=" flex gap-x-2 items-center">
+                            <label className="min-w-[80px]">Subtalkz:</label>
+                            <input onChange={(e) => setSubtalkz(e.target.value)} type="text" placeholder="Discussion's topic ie programming" required className="px-2 md:px-4 py-1 md:py-2 w-full bg-[#1E293B] outline-none  border-t border-gray-700 shadow-md"  />
 
-                    </div>
+                        </div>
+                    )}
+             
                     {imageBox && (
                         <div className=" flex items-center gap-x-2">
                             <label className="min-w-[80px] whitespace-nowrap">Image URL:</label>
+                            <input type="file" onChange={(e)=>uploadImage(e.target.files)} />
                             <input onChange={(e) => setImageUrl(e.target.value)} type="text" placeholder="Drop an image URL here(optional)" className="px-2 md:px-4 py-1 md:py-2 w-full bg-[#1E293B] outline-none  border-t border-gray-700 shadow-md"  />
 
                         </div>
