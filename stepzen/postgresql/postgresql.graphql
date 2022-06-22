@@ -155,8 +155,8 @@ type Query {
       @dbquery(
         type: "postgresql"
         query: """
-          select * from "talkZ_post"
-          join "talkZ_subtalkz" on "talkZ_subtalkz"."id" = "talkZ_post"."subtalkz_id"
+          select *,"talkZ_post".id as id from "talkZ_post"
+          inner join "talkZ_subtalkz" on "talkZ_subtalkz"."id" = "talkZ_post"."subtalkz_id"
           where "talkZ_subtalkz"."topic" = $1
           order by "talkZ_post"."created_at" desc
       """
@@ -257,8 +257,8 @@ type Mutation {
   insertTalkz_comment(
     post_id: ID!
     text: String!
-    created_at: DateTime!
     username: String!
+    user_id:ID!
   ): Talkz_comment
     @dbquery(
       type: "postgresql"

@@ -88,8 +88,8 @@ const CreatePost = ({ topic }:Props) => {
                         image,
                         subtalkz_id:getTalkz_subtalkzListbyTopic[0].id,
                         title,
-                        username:session?.user?.name
-
+                        username:session?.user?.name,
+                        user_id:getTalkz_userByEmail.id
                     }
                 })
                 console.log("using existing subtalkz id")

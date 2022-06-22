@@ -2,6 +2,7 @@ import { IoIosNotificationsOutline } from "react-icons/io"
 import Search from "./Search"
 import { signIn, signOut, useSession } from "next-auth/react"
 import Image from "next/image"
+import Link from "next/link"
 
 
 
@@ -12,10 +13,13 @@ const Header = () => {
     //header component
     <nav className="sm:p-[12px] p-2 md:p-4 z-[999]   fixed top-0 w-full  border-b border-gray-800 bg-[#0F172A] bg-opacity-10  backdrop-filter backdrop-blur-lg ">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <div className="font-semibold cursor-pointer text-base sm:text-lg md:text-2xl tracking-wide text-white">
-                talk
-                <span className="font-bold text-[#0EA5E9]">Z</span>
-            </div>
+            <Link href="/">
+                <div className="font-semibold cursor-pointer text-base sm:text-lg md:text-2xl tracking-wide text-white">
+                    talk
+                    <span className="font-bold text-[#0EA5E9]">Z</span>
+                </div>
+            </Link>
+       
             {/* responsive search component */}
             <Search />
             <div className="flex items-center md:gap-x-2">

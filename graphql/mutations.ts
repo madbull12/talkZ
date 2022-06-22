@@ -56,3 +56,25 @@ export const ADD_NEW_USER = gql`
         }
     }
 `
+
+export const ADD_COMMENT = gql`
+    mutation MyMutation(
+        $post_id:ID!
+        $text:String!
+        $username:String!
+        $user_id:ID!
+    ) {
+        insertTalkz_comment(
+            post_id: $post_id
+            text: $text
+            username:$username
+            user_id:$user_id
+        ) {
+            post_id
+            text
+            username
+            user_id
+            id
+        }
+    }
+`
