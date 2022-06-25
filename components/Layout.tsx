@@ -1,5 +1,6 @@
 import Header from "./Header"
 import Sidebar from "./Sidebar"
+import TopCommunities from "./TopCommunities"
 
 const Layout = ({ children }:any) => {
   return (
@@ -8,6 +9,7 @@ const Layout = ({ children }:any) => {
         <div className=" relative min-h-screen">
           <Sidebar />
           {children}
+          <TopCommunities />
           
         {/* <CreatePost /> */}
         </div>

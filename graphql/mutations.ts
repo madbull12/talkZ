@@ -74,7 +74,29 @@ export const ADD_COMMENT = gql`
             text
             username
             user_id
-            id
+            
         }
     }
+`
+
+export const ADD_VOTE = gql`
+    mutation MyMutation(
+        $post_id:ID!
+        $upvote:Boolean!
+        $username:String!
+        $user_id:ID! 
+    ){
+        insertTalkz_vote(
+            post_id:$post_id
+            upvote:$upvote
+            username:$username
+            user_id:$user_id
+        ) {
+            post_id
+            upvote
+            username
+            user_id
+        }
+    }
+
 `

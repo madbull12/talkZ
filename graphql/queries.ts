@@ -147,4 +147,26 @@ export const GET_POST_BY_TOPIC = gql`
   }
 
 `
+export const GET_VOTE_LIST_BY_POST_ID = gql`
+  query MyQuery($id:ID!) {
+    getTalkz_voteUsingPost_id(id:$id) {
+      upvote
+      user_id
+      username
+      post_id
+      id
+      created_at
 
+    }
+  }
+`
+
+export const GET_ALL_SUBTALKZ_BY_LIMIT = gql`
+  query MyQuery($limit:Int!) {
+    getTalkZ_subtalkzListByLimit(limit:$limit) {
+      topic
+      id
+      created_at
+    }
+  }
+`

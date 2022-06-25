@@ -12,10 +12,11 @@ export interface IPost {
     talkZ_user:User
 }
 
-interface User {
+export interface User {
     name:string;
     image:string;
     id:string;
+    email:string
 }
 
 export interface Subtalkz {
@@ -26,6 +27,9 @@ export interface Subtalkz {
 
 export interface Vote {
     upvote:boolean;
-    username:string
-
+    username:string;
+    id:string;
+    user_id:string;
+    post_id:string;
 }
+

@@ -18,11 +18,12 @@ type TalkZ_post {
   talkz_commentList: [Talkz_comment]
     @materializer(
       query: "getTalkz_commentUsingPost_id"
-      arguments: [{ name:"post_id",field:"id" }]
+      arguments: [{ name: "post_id",field: "id" }]
     )
-  talkz_voteList: [Talkz_vote] @materializer(
+  talkz_voteList: [Talkz_vote] 
+    @materializer(
     query: "getTalkz_voteUsingPost_id"
-    arguments: [{ name:"post_id",field:"id" }]
+    arguments: [{ name: "post_id",field: "id" }]
   )
   title: String
   username: String
@@ -49,7 +50,7 @@ type Talkz_comment {
   talkZ_user:Talkz_user
   @materializer(
     query: "getTalkz_user"
-    arguments: [{ name: "id", field: "user_id" }]
+    arguments: [{ name: "user_id", field: "id" }]
   )
 
 
@@ -65,6 +66,12 @@ type Talkz_vote {
     @materializer(
       query: "getTalkZ_post"
       arguments: [{ name: "id", field: "post_id" }]
+  )
+  user_id:ID
+  talkZ_user: Talkz_user
+    @materializer(
+      query: "getTalkz_user"
+      arguments: [{ name: "id", field: "user_id" }]
     )
   upvote: Boolean
   username: String
@@ -110,9 +117,8 @@ type Query {
     @dbquery(
       type: "postgresql"
       query: """
-      SELECT T."created_at", T."id", T."post_id", T."upvote", T."username"
-        FROM "public"."talkz_vote" T
-        WHERE T."post_id" = $1
+        SELECT * from talkz_vote WHERE "post_id" = $1
+        order by "created_at" desc
       """
       configuration: "postgresql_config"
     )
@@ -123,6 +129,15 @@ type Query {
       table: "talkZ_subtalkz"
       configuration: "postgresql_config"
     )
+    getTalkZ_subtalkzListByLimit(limit:Int!): [TalkZ_subtalkz]
+      @dbquery(
+        type: "postgresql"
+        schema: "public"
+        query: """
+          select * from "talkZ_subtalkz" limit $1
+        """
+        configuration: "postgresql_config"
+      )
 
   getTalkz_subtalkzListbyTopic(topic: String!): [TalkZ_subtalkz]
     @dbquery(
@@ -277,9 +292,9 @@ type Mutation {
     )
   insertTalkz_vote(
     post_id: ID!
-    created_at: DateTime!
     upvote: Boolean!
     username: String!
+    user_id:ID!
   ): Talkz_vote
     @dbquery(
       type: "postgresql"
