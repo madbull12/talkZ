@@ -122,7 +122,7 @@ const CreatePost = ({ topic }:Props) => {
             {session && (
                 <Image width={35} height={35} src={session?.user?.image || "sdsds"} alt={session?.user?.name || "profile"} objectFit="cover" className="rounded-full" />
             )}
-            <input disabled={!session} onChange={(e)=>setTitle(e.target.value)} value={title} className="bg-transparent text-gray-400 w-full outline-none" placeholder={topic ? "Create a post regarding this subtalkz"  : session ? "Create a post by typing a title" : "Please login first"} />
+            <input disabled={!session} onChange={(e)=>setTitle(e.target.value)} value={title} className="bg-transparent text-gray-400 w-full outline-none text-sm md:text-base" placeholder={topic ? "Create a post regarding this subtalkz"  : session ? "Create a post by typing a title" : "Please login first"} />
             <div className="flex items-center gap-x-2">
                 <BsImages  className={`hover:text-[#0EA5E9] ${imageBox && "text-[#0EA5E9]"}`} onClick={()=>setImageBox(!imageBox)} />
                 <BsLink45Deg className="hover:text-[#0EA5E9]" />
@@ -134,13 +134,13 @@ const CreatePost = ({ topic }:Props) => {
                     e.preventDefault();
                     handleSubmit();
                 }} className="flex flex-col  gap-y-4 ">
-                    <div className=" flex  items-center gap-x-2 ">
+                    <div className=" flex  items-center gap-x-2 text-sm md:text-base">
                         <label className="min-w-[80px]">Body:</label>
                         <input onChange={(e) => setBody(e.target.value)} type="text" placeholder="Text(optional)" className="px-2 md:px-4 py-1 md:py-2 w-full bg-[#1E293B] outline-none  border-t border-gray-700 shadow-md" />
 
                     </div>
                     {!topic && (
-                        <div className=" flex gap-x-2 items-center">
+                        <div className=" flex gap-x-2 items-center text-sm md:text-base">
                             <label className="min-w-[80px]">Subtalkz:</label>
                             <input onChange={(e) => setSubtalkz(e.target.value)} type="text" placeholder="Discussion's topic ie programming" required className="px-2 md:px-4 py-1 md:py-2 w-full bg-[#1E293B] outline-none  border-t border-gray-700 shadow-md"  />
 
@@ -155,7 +155,7 @@ const CreatePost = ({ topic }:Props) => {
 
                         </div>
                     )}
-                    <button type="submit" className="bg-[#0EA5E9] text-white font-bold rounded-full p-2">Create post</button>
+                    <button type="submit" className="bg-[#0EA5E9] whitespace-nowrap text-white font-bold rounded-full md:py-2">Create post</button>
                
                 </form>
             </div>

@@ -128,7 +128,7 @@ const Post = ({ post }: _IPost) => {
                         <span className=" text-sm">{displayVotes(data?.getTalkz_voteUsingPost_id)}</span>
                         <BsArrowDownShort className={`text-xl hover:text-[#0EA5E9] rounded-full ${vote===false && "text-[#0EA5E9]"}`} onClick={()=>upVote(false)} />
                     </div>
-                    <div className="space-y-2 flex-1 ">
+                    <div className="space-y-2 flex-1 text-sm md:text-base">
                         <div className="flex justify-between items-center ">
                             <h1 className="text-lg md:text-xl font-semibold">
                                 {post?.title}
@@ -143,12 +143,15 @@ const Post = ({ post }: _IPost) => {
                         {post?.image && (
                             <img src={post.image} alt={post.title} className="w-full"  />
                         )}
-                        <div className="flex items-center gap-x-2">
-                            <Link href={`/explore/${post?.talkZ_subtalkz?.topic}`}>
-                                <span className="text-gray-500 hover:underline hover:text-[#0ea5e9]">t/{post?.talkZ_subtalkz?.topic}</span>
-                            
-                            </Link>
+                        <div className="flex items-center gap-x-2 whitespace-nowrap justify-between">
+                            <div className="flex flex-col md:flex-row gap-x-2">
+                                <Link href={`/explore/${post?.talkZ_subtalkz?.topic}`}>
+                                    <span className="text-gray-500 hover:underline hover:text-[#0ea5e9]">t/{post?.talkZ_subtalkz?.topic}</span>
+                                
+                                </Link>
                             <span className="font-semibold">Posted by <span className="text-[#0EA5E9]">{post?.username}</span></span>
+                            </div>
+                           
                             <div className="text-gray-700 text-sm font-medium">
                             <TimeAgo
                                 datetime={post?.created_at}

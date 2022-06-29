@@ -12,7 +12,7 @@ const TopCommunities = () => {
     })
 
   return (
-    <aside className="bg-[#1E293B] text-gray-400 shadow-sm p-4 fixed w-[250px] space-y-3 rounded-lg  top-24 right-2">
+    <aside className="bg-[#1E293B] text-gray-400 shadow-sm p-4 fixed w-[250px] space-y-3 rounded-lg  top-24 right-2 hidden xl:block">
         <h1 className="font-bold text-lg">Top Communities</h1>
         {data?.getTalkZ_subtalkzListByLimit?.map((subtalkz:Subtalkz)=>(
             <div className="flex justify-between" key={subtalkz.id}>
