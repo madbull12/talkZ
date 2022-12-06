@@ -2,7 +2,7 @@ type TalkZ_post {
   body: String
   created_at: DateTime
   id: ID!
-  image: String
+  media: String
   subtalkz_id: ID
   user_id: ID
   talkZ_subtalkz: TalkZ_subtalkz
@@ -160,7 +160,7 @@ type Query {
     @dbquery(
       type: "postgresql"
       query: """
-      SELECT T."body", T."created_at", T."id", T."image", T."subtalkz_id", T."title", T."username"
+      SELECT T."body", T."created_at", T."id", T."media", T."subtalkz_id", T."title", T."username"
         FROM "public"."talkZ_post" T
         WHERE T."subtalkz_id" = $1
       """
@@ -230,7 +230,7 @@ These are some examples of mutations generated from the schema. Feel free to mod
 """
 type Mutation {
   insertTalkZ_post(
-    image: String!
+    media: String!
     subtalkz_id: ID!
     body: String!
     title: String!

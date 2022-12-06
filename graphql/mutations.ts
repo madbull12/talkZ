@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 export const ADD_POST = gql`
     mutation MyMutation(
         $body:String!
-        $image:String!
+        $media:String!
         $subtalkz_id:ID!
         $title:String!
         $username:String!
@@ -11,7 +11,7 @@ export const ADD_POST = gql`
     ) {
         insertTalkZ_post(
             body: $body
-            image: $image 
+            media: $imedia
             subtalkz_id: $subtalkz_id
             title: $title
             username: $username
@@ -20,7 +20,7 @@ export const ADD_POST = gql`
             body
             created_at
             id
-            image
+            media
             subtalkz_id
             title
             username
@@ -43,16 +43,16 @@ export const ADD_NEW_USER = gql`
     mutation MyMutation(
         $name:String!
         $email:String!
-        $image:String!
+        $media:String!
     ) {
         insertTalkz_user(
             name:$name
             email:$email
-            image:$image
+            image:$media
         ) {
             name
             email
-            image
+            media
         }
     }
 `

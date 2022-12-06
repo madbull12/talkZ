@@ -1,7 +1,7 @@
 export interface IPost {
     body:String;
     id:string;
-    image:string;
+    media:string;
     subtalkz_id:string;
     talkZ_voteList:Vote[];
     talkZ_subtalkz:Subtalkz;

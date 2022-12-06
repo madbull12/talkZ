@@ -141,8 +141,8 @@ const Post = ({ post }: _IPost) => {
                         <p>
                             {post?.body}
                         </p>
-                        {post?.image && (
-                            <img src={post.image} alt={post.title} className="w-full"  />
+                        {post?.media && (
+                            <img src={post.media} alt={post.title} className="w-full"  />
                         )}
                         <div className="flex items-center gap-x-2 whitespace-nowrap justify-between">
                             <div className="flex flex-col md:flex-row gap-x-2">
