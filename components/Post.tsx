@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react"
 import toast from "react-hot-toast"
 import client from "../apollo-client"
 import { ADD_VOTE } from "../graphql/mutations"
+import Image from "next/image"
 
 
 
@@ -133,7 +134,7 @@ const Post = ({ post }: _IPost) => {
                             <h1 className="text-lg md:text-xl font-semibold">
                                 {post?.title}
                             </h1>
-                            <img src={post?.talkZ_user?.image || "https://i.pinimg.com/564x/a5/f6/47/a5f647e37b2573fc3d564ed0be08d500.jpg"} alt={post?.talkZ_user?.name} className="rounded-full w-[35px]  h-[35px]"  />
+                            <Image src={post?.talkZ_user?.image || "https://i.pinimg.com/564x/a5/f6/47/a5f647e37b2573fc3d564ed0be08d500.jpg"} alt={post?.talkZ_user?.name} width={35} height={35} className="rounded-full "  />
                         </div>
                     
                     

@@ -20,6 +20,7 @@
     "react-icons": "^4.4.0",
     "react-time-ago": "^7.2.1",
     "recoil": "^0.7.4",
+    "stepzen": "^0.22.1",
     "timeago-react": "^3.0.5"
   },
   "devDependencies": {

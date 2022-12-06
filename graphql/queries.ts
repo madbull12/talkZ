@@ -11,30 +11,13 @@ query MyQuery {
     id
     subtalkz_id
     image
-    talkz_commentList {
-      username
-      text
-      post_id
-      id
-      created_at
-      talkZ_user {
-        image
-        id
-        name
-      }
-
-    }
-    talkz_voteList {
-      upvote
-      username
-      id
-      post_id
-    }
+    
     title
     username
     talkZ_user {
-      image,
-      id,
+      email
+      id
+      image
       name
     }
   }

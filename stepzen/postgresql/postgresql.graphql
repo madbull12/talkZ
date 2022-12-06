@@ -4,7 +4,7 @@ type TalkZ_post {
   id: ID!
   image: String
   subtalkz_id: ID
-  user_id:ID,
+  user_id: ID
   talkZ_subtalkz: TalkZ_subtalkz
     @materializer(
       query: "getTalkZ_subtalkz"
@@ -13,18 +13,18 @@ type TalkZ_post {
   talkZ_user: Talkz_user
     @materializer(
       query: "getTalkz_user"
-      arguments: [{ name: "id",field: "user_id" }]
+      arguments: [{ name: "id", field: "user_id" }]
     )
   talkz_commentList: [Talkz_comment]
     @materializer(
       query: "getTalkz_commentUsingPost_id"
-      arguments: [{ name: "post_id",field: "id" }]
+      arguments: [{ name: "post_id", field: "id" }]
     )
-  talkz_voteList: [Talkz_vote] 
+  talkz_voteList: [Talkz_vote]
     @materializer(
-    query: "getTalkz_voteUsingPost_id"
-    arguments: [{ name: "post_id",field: "id" }]
-  )
+      query: "getTalkz_voteUsingPost_id"
+      arguments: [{ name: "post_id", field: "id" }]
+    )
   title: String
   username: String
 }
@@ -33,7 +33,10 @@ type TalkZ_subtalkz {
   created_at: DateTime
   id: ID!
   talkZ_postList: [TalkZ_post]
-    @materializer(query: "getTalkZ_postUsingSubtalkz_id")
+    @materializer(
+      query: "getTalkZ_postUsingSubtalkz_id"
+      arguments:[{ name:"subtalkz_id",field:"id" }]
+    )
   topic: String
 }
 
@@ -42,17 +45,16 @@ type Talkz_comment {
   id: ID!
   post_id: ID
   talkZ_post: TalkZ_post
-  @materializer(
-    query: "getTalkZ_post"
-    arguments: [{ name: "id", field: "post_id" }]
-  )
-  user_id:ID
-  talkZ_user:Talkz_user
-  @materializer(
-    query: "getTalkz_user"
-    arguments: [{ name: "user_id", field: "id" }]
-  )
-
+    @materializer(
+      query: "getTalkZ_post"
+      arguments: [{ name: "id", field: "post_id" }]
+    )
+  user_id: ID
+  talkZ_user: Talkz_user
+    @materializer(
+      query: "getTalkz_user"
+      arguments: [{ name: "id", field: "user_id" }]
+    )
 
   text: String
   username: String
@@ -66,8 +68,8 @@ type Talkz_vote {
     @materializer(
       query: "getTalkZ_post"
       arguments: [{ name: "id", field: "post_id" }]
-  )
-  user_id:ID
+    )
+  user_id: ID
   talkZ_user: Talkz_user
     @materializer(
       query: "getTalkz_user"
@@ -78,19 +80,19 @@ type Talkz_vote {
 }
 
 type Talkz_user {
-    created_at: DateTime
-    id: ID!
-    email:String
-    name:String
-    image:String
+  created_at: DateTime
+  id: ID!
+  email: String
+  name: String
+  image: String
 }
 
 type Query {
   getTalkZ_postList: [TalkZ_post]
     @dbquery(
       type: "postgresql"
-    
-      query:"""
+
+      query: """
         select * from "talkZ_post" ORDER by "created_at" desc
       """
       configuration: "postgresql_config"
@@ -106,19 +108,17 @@ type Query {
     @dbquery(
       type: "postgresql"
       query: """
-        select * from "talkz_comment" where "post_id" = $1
+      select * from "talkz_comment" where "post_id" = $1
       """
       configuration: "postgresql_config"
     )
-
-
 
   getTalkz_voteUsingPost_id(id: ID!): [Talkz_vote]
     @dbquery(
       type: "postgresql"
       query: """
-        SELECT * from talkz_vote WHERE "post_id" = $1
-        order by "created_at" desc
+      SELECT * from talkz_vote WHERE "post_id" = $1
+      order by "created_at" desc
       """
       configuration: "postgresql_config"
     )
@@ -129,26 +129,26 @@ type Query {
       table: "talkZ_subtalkz"
       configuration: "postgresql_config"
     )
-    getTalkZ_subtalkzListByLimit(limit:Int!): [TalkZ_subtalkz]
-      @dbquery(
-        type: "postgresql"
-        schema: "public"
-        query: """
-          select * from "talkZ_subtalkz" limit $1
-        """
-        configuration: "postgresql_config"
-      )
+  getTalkZ_subtalkzListByLimit(limit: Int!): [TalkZ_subtalkz]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      select * from "talkZ_subtalkz" limit $1
+      """
+      configuration: "postgresql_config"
+    )
 
   getTalkz_subtalkzListbyTopic(topic: String!): [TalkZ_subtalkz]
     @dbquery(
       type: "postgresql"
       schema: "public"
       query: """
-        select * from "talkZ_subtalkz" where "topic" = $1
+      select * from "talkZ_subtalkz" where "topic" = $1
       """
       configuration: "postgresql_config"
     )
-  
+
   getTalkZ_subtalkz(id: ID!): TalkZ_subtalkz
     @dbquery(
       type: "postgresql"
@@ -166,17 +166,17 @@ type Query {
       """
       configuration: "postgresql_config"
     )
-    getTalkZ_postListByTopic(topic:String!): [TalkZ_post]
-      @dbquery(
-        type: "postgresql"
-        query: """
-          select *,"talkZ_post".id as id from "talkZ_post"
-          inner join "talkZ_subtalkz" on "talkZ_subtalkz"."id" = "talkZ_post"."subtalkz_id"
-          where "talkZ_subtalkz"."topic" = $1
-          order by "talkZ_post"."created_at" desc
+  getTalkZ_postListByTopic(topic: String!): [TalkZ_post]
+    @dbquery(
+      type: "postgresql"
+      query: """
+      select *,"talkZ_post".id as id from "talkZ_post"
+      inner join "talkZ_subtalkz" on "talkZ_subtalkz"."id" = "talkZ_post"."subtalkz_id"
+      where "talkZ_subtalkz"."topic" = $1
+      order by "talkZ_post"."created_at" desc
       """
       configuration: "postgresql_config"
-      )
+    )
   getTalkz_commentList: [Talkz_comment]
     @dbquery(
       type: "postgresql"
@@ -206,25 +206,23 @@ type Query {
       configuration: "postgresql_config"
     )
 
-    getTalkz_user(id:ID!): Talkz_user 
-      @dbquery(
-        type: "postgresql"
-        schema: "public"
-        table: "talkz_user"
-        configuration: "postgresql_config"
+  getTalkz_user(id: ID!): Talkz_user
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "talkz_user"
+      configuration: "postgresql_config"
     )
 
-    getTalkz_userByEmail(email:String!): Talkz_user
-      @dbquery(
-        type: "postgresql"
-        schema: "public"
-        query: """
-            select * from "talkz_user" where "email" = $1
-        """
-        configuration: "postgresql_config"
+  getTalkz_userByEmail(email: String!): Talkz_user
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      select * from "talkz_user" where "email" = $1
+      """
+      configuration: "postgresql_config"
     )
-    
-
 }
 
 """
@@ -237,7 +235,7 @@ type Mutation {
     body: String!
     title: String!
     username: String!
-    user_id:ID!
+    user_id: ID!
   ): TalkZ_post
     @dbquery(
       type: "postgresql"
@@ -273,7 +271,7 @@ type Mutation {
     post_id: ID!
     text: String!
     username: String!
-    user_id:ID!
+    user_id: ID!
   ): Talkz_comment
     @dbquery(
       type: "postgresql"
@@ -294,7 +292,7 @@ type Mutation {
     post_id: ID!
     upvote: Boolean!
     username: String!
-    user_id:ID!
+    user_id: ID!
   ): Talkz_vote
     @dbquery(
       type: "postgresql"
@@ -311,12 +309,8 @@ type Mutation {
       dml: DELETE
       configuration: "postgresql_config"
     )
-  insertTalkz_user(
-    name:String!
-    email:String!
-    image:String!
-  ):Talkz_user 
-   @dbquery(
+  insertTalkz_user(name: String!, email: String!, image: String!): Talkz_user
+    @dbquery(
       type: "postgresql"
       schema: "public"
       table: "talkz_user"

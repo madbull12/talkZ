@@ -117,8 +117,8 @@ const CreatePost = ({ topic }:Props) => {
     }
 
   return (
-    <section className="lg:mt-0 md:mt-8  relative">
-        <div className="bg-[#1E293B] sticky z-[999]  top-20 rounded-xl mt-4 text-gray-400 border-t border-gray-700 shadow-md px-2 md:px-4 py-1 md:py-2 font-semibold flex items-center gap-2">
+    <section className="lg:pt-16 relative">
+        <div className="bg-[#1E293B] sticky z-[100]  top-20 rounded-xl mt-4 text-gray-400 border-t border-gray-700 shadow-md px-2 md:px-4 py-1 md:py-2 font-semibold flex items-center gap-2">
             {session && (
                 <Image width={35} height={35} src={session?.user?.image || "sdsds"} alt={session?.user?.name || "profile"} objectFit="cover" className="rounded-full" />
             )}
