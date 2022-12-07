@@ -138,6 +138,14 @@ type Query {
       table: "talkZ_subtalkz"
       configuration: "postgresql_config"
     )
+  getTalkZ_subtalkzListBySearch(q:String!): [TalkZ_subtalkz]
+    @dbquery(
+      type: "postgresql"
+       query: """
+        select * from "talkZ_subtalkz" WHERE "topic" LIKE $1 
+      """
+      configuration: "postgresql_config"
+    )
   getTalkZ_subtalkzListByLimit(limit: Int!): [TalkZ_subtalkz]
     @dbquery(
       type: "postgresql"

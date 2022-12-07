@@ -147,8 +147,18 @@ export const GET_ALL_SUBTALKZ_BY_LIMIT = gql`
   }
 `;
 
-export const SEARCH_POSTS = gql`
+export const SEARCH_SUBTALKZ = gql`
   query MyQuery($q:String!) {
+    getTalkZ_subtalkzListBySearch(q: $q) {
+      topic
+      id
+      created_at
+    }
+  }
+`;
+
+export const SEARCH_POSTS = gql`
+  query MyQuery($q: String!) {
     getTalkZ_postListBySearch(q: $q) {
       body
       title

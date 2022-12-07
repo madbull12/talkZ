@@ -2,19 +2,24 @@ import { useQuery } from "@apollo/client";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Post from "../../components/Post";
-import { SEARCH_POSTS } from "../../graphql/queries";
+import { SEARCH_POSTS, SEARCH_SUBTALKZ } from "../../graphql/queries";
 import { IPost } from "../../interface";
 
 const ExplorePage = () => {
   const router = useRouter();
   const { q } = router.query;
+  const  { data:subtalkz } = useQuery(SEARCH_SUBTALKZ,{
+    variables:{
+      q:`%${q}%`
+    }
+  })
   const { data: posts } = useQuery(SEARCH_POSTS, {
     variables: {
       q:`%${q}%`,
     },
   });
+  console.log(subtalkz)
 
-  console.log(posts);
   return (
     <div className="max-w-7xl mx-auto">
       <Head>
