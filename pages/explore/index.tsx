@@ -24,8 +24,8 @@ const ExplorePage = () => {
       </Head>
       <div className="relative pt-4 lg:pt-24 max-w-[642px] mx-auto px-4 lg:px-0">
         <div className="flex flex-col gap-y-4">
-          {posts?.getTalkZ_postListBySearch?.map((post: IPost) => (
-            <Post post={post} />
+          {posts?.getTalkZ_postListBySearch?.map((post: IPost,i:number) => (
+            <Post post={post} key={i} />
           ))}
         </div>
       </div>
