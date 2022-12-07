@@ -269,7 +269,7 @@ const CreatePost = ({ topic }: Props) => {
                 ) : (
                   <div className=" flex items-center gap-x-2">
                     <label className="min-w-[80px] whitespace-nowrap">
-                      Image URL:
+                      Media URL:
                     </label>
                     <input
                       type="file"

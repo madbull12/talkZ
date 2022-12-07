@@ -20,6 +20,24 @@ export const GET_ALL_POSTS = gql`
         image
         name
       }
+      talkz_commentList {
+        username
+        text
+        post_id
+        id
+        created_at
+        talkZ_user {
+          image
+          id
+          name
+        }
+      }
+      talkz_voteList {
+        upvote
+        username
+        id
+        post_id
+      }
     }
   }
 `;

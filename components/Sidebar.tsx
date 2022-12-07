@@ -6,7 +6,7 @@ import { MdOutlineExplore,MdOutlineQuestionAnswer } from 'react-icons/md'
 const Sidebar = () => {
   const router = useRouter()
   return (
-    <div className=" lg:fixed w-full  lg:w-[220px] space-y-2 lg:block top-4 md:top-10 lg:top-16 lg:h-screen  px-4  pt-16 z-[100] text-gray-400 bg-transparent">
+    <div className=" lg:fixed w-full lg:pt-14  lg:w-[220px] space-y-2 lg:block top-4 md:top-10 lg:top-16 lg:h-screen  px-4 pt-16  md:pt-20 z-[100] text-gray-400 bg-transparent">
       <p className="text-sm font-bold hidden lg:block">MENU</p>
       <ul className="lg:space-y-3   flex lg:flex-col w-full justify-center space-x-8 lg:space-x-0">
          

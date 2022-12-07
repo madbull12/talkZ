@@ -18,12 +18,12 @@ type TalkZ_post {
   talkz_commentList: [Talkz_comment]
     @materializer(
       query: "getTalkz_commentUsingPost_id"
-      arguments: [{ name: "post_id", field: "id" }]
+      arguments: [{ name: "id", field: "id" }]
     )
   talkz_voteList: [Talkz_vote]
     @materializer(
       query: "getTalkz_voteUsingPost_id"
-      arguments: [{ name: "post_id", field: "id" }]
+      arguments: [{ name: "id", field: "id" }]
     )
   title: String
   username: String
@@ -35,7 +35,7 @@ type TalkZ_subtalkz {
   talkZ_postList: [TalkZ_post]
     @materializer(
       query: "getTalkZ_postUsingSubtalkz_id"
-      arguments:[{ name:"subtalkz_id",field:"id" }]
+      arguments:[{ name:"id",field:"id" }]
     )
   topic: String
 }
