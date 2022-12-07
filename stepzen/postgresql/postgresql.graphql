@@ -97,6 +97,15 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+  getTalkZ_postListBySearch(q:String!): [TalkZ_post]
+    @dbquery(
+      type: "postgresql"
+
+      query: """
+        select * from "talkZ_post" WHERE "title" LIKE $1 OR "body" LIKE $1   ORDER by "created_at" desc
+      """
+      configuration: "postgresql_config"
+    )
   getTalkZ_post(id: ID!): TalkZ_post
     @dbquery(
       type: "postgresql"

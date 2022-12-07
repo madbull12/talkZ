@@ -122,7 +122,7 @@ const Post = ({ post }: _IPost) => {
         </div>
     )}
         <Link href={`/post/${post?.id}`} >
-            <div className="bg-[#1E293B] shadow-sm cursor-pointer group-hover:bg-[#1b2433] transition-all ease-in-out duration-100 border-b border-gray-700 border-r border-r-gray-800 rounded-md py-2 px-4">
+            <div className="bg-[#1E293B]  text-gray-400 shadow-sm cursor-pointer group-hover:bg-[#1b2433] transition-all ease-in-out duration-100 border-b border-gray-700 border-r border-r-gray-800 rounded-md py-2 px-4">
                 <div className="flex space-x-2">
                     <div className="flex-col items-center flex">
                         <BsArrowUpShort className={`text-xl hover:text-[#0EA5E9] rounded-full ${vote && "text-[#0EA5E9]"}`}  onClick={()=>upVote(true)} />

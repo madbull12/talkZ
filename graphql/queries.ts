@@ -146,3 +146,37 @@ export const GET_ALL_SUBTALKZ_BY_LIMIT = gql`
     }
   }
 `;
+
+export const SEARCH_POSTS = gql`
+  query MyQuery($q:String!) {
+    getTalkZ_postListBySearch(q: $q) {
+      body
+      title
+      media
+      id
+      created_at
+      subtalkz_id
+      username
+      talkZ_subtalkz {
+        topic
+        id
+        created_at
+      }
+      talkZ_user {
+        id
+        image
+        name
+        email
+      }
+      talkz_commentList {
+        username
+        text
+        created_at
+      }
+      talkz_voteList {
+        upvote
+        created_at
+      }
+    }
+  }
+`;
