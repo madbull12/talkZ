@@ -63,6 +63,15 @@ export const GET_USER_BY_EMAIL = gql`
   }
 `;
 
+export const GET_ALL_SUBTALKZ = gql`
+  query MyQuery {
+    getTalkZ_subtalkzList {
+      topic
+    }
+  }
+  
+`
+
 export const GET_POST_BY_ID = gql`
   query MyQuery($id: ID!) {
     getTalkZ_post(id: $id) {

@@ -1,24 +1,32 @@
 import { useQuery } from "@apollo/client";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import Post from "../../components/Post";
-import { SEARCH_POSTS, SEARCH_SUBTALKZ } from "../../graphql/queries";
-import { IPost } from "../../interface";
+import SubtalkzItem from "../../components/SubtalkzItem";
+import {
+  GET_ALL_SUBTALKZ,
+  SEARCH_POSTS,
+  SEARCH_SUBTALKZ,
+} from "../../graphql/queries";
+import { IPost, Subtalkz } from "../../interface";
 
 const ExplorePage = () => {
   const router = useRouter();
   const { q } = router.query;
-  const  { data:subtalkz } = useQuery(SEARCH_SUBTALKZ,{
-    variables:{
-      q:`%${q}%`
-    }
-  })
-  const { data: posts } = useQuery(SEARCH_POSTS, {
+  const { data: subtalkz } = useQuery(SEARCH_SUBTALKZ, {
     variables: {
-      q:`%${q}%`,
+      q: `%${q}%`,
     },
   });
-  console.log(subtalkz)
+  const { data: items } = q
+    ? useQuery(SEARCH_POSTS, {
+        variables: {
+          q: `%${q}%`,
+        },
+      })
+    : useQuery(GET_ALL_SUBTALKZ);
+  console.log(subtalkz);
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -28,10 +36,37 @@ const ExplorePage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="relative pt-4 lg:pt-24 max-w-[642px] mx-auto px-4 lg:px-0">
-        <div className="flex flex-col gap-y-4">
-          {posts?.getTalkZ_postListBySearch?.map((post: IPost,i:number) => (
-            <Post post={post} key={i} />
-          ))}
+        <div className="space-y-4">
+          {q ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4">
+                {subtalkz?.getTalkZ_subtalkzListBySearch?.map((item:Subtalkz)=>(
+                  <SubtalkzItem item={item} key={item.id} />
+                ))}
+              </div>
+              <div className="flex flex-col gap-y-4">
+                {items?.getTalkZ_postListBySearch?.map(
+                  (post: IPost, i: number) => (
+                    <Post post={post} key={i} />
+                  )
+                )}
+              </div>
+            </>
+          ) : (
+            <div>
+              <h1 className="text-gray-400 font-bold text-2xl mb-4 text-center ">
+                Select topics you're interested in
+              </h1>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4">
+                {items?.getTalkZ_subtalkzList?.map(
+                  (item: Subtalkz, i: number) => (
+                
+                      <SubtalkzItem key={i} item={item} />
+                  )
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

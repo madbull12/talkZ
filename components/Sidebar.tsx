@@ -12,7 +12,7 @@ const Sidebar = () => {
          
         <Link href="/">
           <span className={` flex items-center cursor-pointer gap-x-2 ${router.pathname === "/" ? "text-[#0EA5E9]  font-bold" : ""}`}>
-            <AiOutlineHome className="text-3xl lg:text-xl " />
+            <AiOutlineHome className="text-2xl  min-w-[280px]:text-3xl lg:text-xl " />
             <span className="hidden lg:block">Home</span>           
           </span>
 
@@ -21,7 +21,7 @@ const Sidebar = () => {
     
         <Link href="/explore">
           <span className={`flex cursor-pointer items-center gap-x-2 ${router.pathname === "/explore" ? "text-[#0EA5E9] font-bold" : ""}`}>
-            <MdOutlineExplore  className="text-2xl lg:text-xl " />
+            <MdOutlineExplore  className="text-2xl  min-w-[280px]:text-3xl lg:text-xl " />
             <span  className=" hidden lg:block">Explore topics</span>
 
           </span>
@@ -31,7 +31,7 @@ const Sidebar = () => {
 
         <Link href="/">
           <span className={`flex items-center gap-x-2 cursor-pointer`}>
-              <MdOutlineQuestionAnswer className="text-3xl lg:text-xl" />
+              <MdOutlineQuestionAnswer className="text-2xl  min-w-[280px]:text-3xl lg:text-xl" />
               
               <span  className=" hidden lg:block">
                 My answers

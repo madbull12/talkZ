@@ -122,7 +122,7 @@ const Post = ({ post }: _IPost) => {
         </div>
     )}
         <Link href={`/post/${post?.id}`} >
-            <div className="bg-[#1E293B]  text-gray-400 shadow-sm cursor-pointer group-hover:bg-[#1b2433] transition-all ease-in-out duration-100 border-b border-gray-700 border-r border-r-gray-800 rounded-md py-2 px-4">
+            <div className="bg-[#1E293B]  text-gray-400 shadow-sm cursor-pointer group-hover:bg-[#1b2433] transition-all ease-in-out duration-100 border-b border-gray-700 border-r border-r-gray-800 rounded-md py-1 px-2 min-w-[280px]:py-2 min-w-[280px]:px-4">
                 <div className="flex space-x-2">
                     <div className="flex-col items-center flex">
                         <BsArrowUpShort className={`text-xl hover:text-[#0EA5E9] rounded-full ${vote && "text-[#0EA5E9]"}`}  onClick={()=>upVote(true)} />
@@ -142,9 +142,9 @@ const Post = ({ post }: _IPost) => {
                             {post?.body}
                         </p>
                         {post?.media && (
-                            <img src={post.media} alt={post.title} className="w-full"  />
+                            <img src={post.media} alt={post.title} className="   object-cover  mx-auto "  />
                         )}
-                        <div className="flex items-center gap-x-2 whitespace-nowrap justify-between">
+                        <div className="flex  gap-x-2 whitespace-nowrap flex-col items-start min-w-[280px]:items-center  min-w-[280px]:flex-row justify-between">
                             <div className="flex flex-col md:flex-row gap-x-2">
                                 <Link href={`/explore/${post?.talkZ_subtalkz?.topic}`}>
                                     <span className="text-gray-500 hover:underline hover:text-[#0ea5e9]">t/{post?.talkZ_subtalkz?.topic}</span>
@@ -154,9 +154,9 @@ const Post = ({ post }: _IPost) => {
                             </div>
                            
                             <div className="text-gray-700 text-sm font-medium">
-                            <TimeAgo
-                                datetime={post?.created_at}
-                            />
+                                <TimeAgo
+                                    datetime={post?.created_at}
+                                />
                             </div>
         
                         </div>
