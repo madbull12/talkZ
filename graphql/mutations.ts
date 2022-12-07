@@ -11,7 +11,7 @@ export const ADD_POST = gql`
     ) {
         insertTalkZ_post(
             body: $body
-            media: $imedia
+            media: $media
             subtalkz_id: $subtalkz_id
             title: $title
             username: $username

@@ -3,6 +3,7 @@ import Search from "./Search"
 import { signIn, signOut, useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
+import { BiLogIn, BiLogOut } from "react-icons/bi"
 
 
 
@@ -22,9 +23,12 @@ const Header = () => {
        
             {/* responsive search component */}
             <Search />
-            <div className="flex items-center md:gap-x-2">
+            <div className="flex items-center gap-1 md:gap-x-2">
                 <IoIosNotificationsOutline className="text-gray-400 lg md:text-2xl" />
                 {/* <p>{session?.user?.name}</p> */}
+                <div className="block md:hidden text-gray-400 cursor-pointer">
+                    {session ? <BiLogOut onClick={()=>signOut()} /> : <BiLogIn onClick={()=>signIn()} />}
+                </div>
                 {session ? (
                     <>
                         <Image src={session?.user?.image || "dsds"} alt={session?.user?.name || "profile"} width={"32"} height={"32"} className="rounded-full" objectFit="cover" />
@@ -35,7 +39,7 @@ const Header = () => {
                  
                 ):(
                     <button onClick={() => signIn()} className="text-gray-400 hidden md:flex font-semibold text-xs sm:text-sm bg-[#1E293B] border-t rounded-xl whitespace-nowrap border-gray-700 md:text-base px-2 md:px-4 p-[4px] sm:py-2 shadow-md">
-                     Sign in 
+                        Sign in 
                     </button>
                 )}
                

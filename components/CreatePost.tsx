@@ -23,7 +23,6 @@ const CreatePost = ({ topic }: Props) => {
   const [title, setTitle] = useState<string>("");
   const [subtalkz, setSubtalkz] = useState<string>("");
   const [body, setBody] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
   const [imageBox, setImageBox] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<any>();
   const [preview, setPreview] = useState<string>();
@@ -33,6 +32,7 @@ const CreatePost = ({ topic }: Props) => {
       setPreview(undefined);
       return;
     }
+  
 
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
@@ -40,6 +40,8 @@ const CreatePost = ({ topic }: Props) => {
     // free memory when ever this component is unmounted
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
+
+
 
   const onSelectFile = (e: any) => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -135,14 +137,14 @@ const CreatePost = ({ topic }: Props) => {
 
         console.log(newPost);
       } else {
-        const image = imageUrl || "";
+
 
         const {
           data: { insertTalkz_post: newPost },
         } = await addPost({
           variables: {
             body,
-            image,
+            media,
             subtalkz_id: getTalkz_subtalkzListbyTopic[0].id,
             title,
             username: session?.user?.name,
@@ -232,7 +234,7 @@ const CreatePost = ({ topic }: Props) => {
 
             {imageBox && (
               <>
-                {selectedFile ? (
+                {(selectedFile ) ? (
                   <>
                     {selectedFile.type === "video/mp4" ? (
                       <div className="relative w-1/2 h-full">
@@ -274,12 +276,7 @@ const CreatePost = ({ topic }: Props) => {
                       accept="image/png, image/gif, image/jpeg,video/mp4,video/x-m4v,video/*"
                       onChange={onSelectFile}
                     />
-                    <input
-                      onChange={(e) => setImageUrl(e.target.value)}
-                      type="text"
-                      placeholder="Drop an image URL here(optional)"
-                      className="px-2 md:px-4 py-1 md:py-2 w-full bg-[#1E293B] outline-none  border-t border-gray-700 shadow-md"
-                    />
+                   
                   </div>
                 )}
               </>
