@@ -20,7 +20,6 @@ const HomeFeed = ({ topic }: Props) => {
         },
       });
   console.log(data);
-  const [postNum, setPostNum] = useState<number>(5);
   // console.log(data?.getTalkZ_postList || data?.getTalkZ_postListByTopic)
   const posts: IPost[] = !topic
     ? data?.getTalkZ_postList
