@@ -1,8 +1,11 @@
+import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import CreatePost from '../../components/CreatePost';
 import HomeFeed from '../../components/HomeFeed';
+import PostsList from '../../components/PostsList';
+import { GET_POST_BY_TOPIC } from '../../graphql/queries';
 
 const SubtalkzDetails = () => {
   const router = useRouter();
@@ -19,6 +22,12 @@ const SubtalkzDetails = () => {
 
     getRandomImage();
   },[topic]);
+
+  const { data } =  useQuery(GET_POST_BY_TOPIC, {
+    variables: {
+      topic: topic,
+    },
+  })
 
   return (
 
@@ -40,8 +49,8 @@ const SubtalkzDetails = () => {
           <p>t/{topic}</p>
           
           <CreatePost topic={topic as string} />
+          <PostsList posts={data?.getTalkZ_postListByTopic} />
           
-          <HomeFeed topic={topic as string} />
           
         </div>
       </div>

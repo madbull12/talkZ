@@ -12,26 +12,20 @@ type Props = {
 };
 const HomeFeed = ({ topic }: Props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { data, error } = !topic
-    ? useQuery(GET_ALL_POSTS)
-    : useQuery(GET_POST_BY_TOPIC, {
-        variables: {
-          topic: topic,
-        },
-      });
+  const { data, error } = useQuery(GET_ALL_POSTS);
+
   console.log(data);
   // console.log(data?.getTalkZ_postList || data?.getTalkZ_postListByTopic)
-  const posts: IPost[] = !topic
-    ? data?.getTalkZ_postList
-    : data?.getTalkZ_postListByTopic;
-
-
-
+  // const posts: IPost[] = !topic
+  //   ? data?.getTalkZ_postList
+  //   : data?.getTalkZ_postListByTopic;
 
   return (
     <div className=" text-gray-400">
       <div className="space-y-4 mt-4">
-        <PostsList posts={posts} />
+        <PostsList posts={data?.getTalkZ_postList} /> 
+        
+
       </div>
     </div>
   );
