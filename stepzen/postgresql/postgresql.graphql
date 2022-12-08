@@ -106,6 +106,15 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+  getTalkZ_postListByUserId(id:ID!): [TalkZ_post]
+    @dbquery(
+      type: "postgresql"
+
+      query: """
+        select * from "talkZ_post" WHERE "user_id" = $1 ORDER by "created_at" desc
+      """
+      configuration: "postgresql_config"
+    )
   getTalkZ_post(id: ID!): TalkZ_post
     @dbquery(
       type: "postgresql"

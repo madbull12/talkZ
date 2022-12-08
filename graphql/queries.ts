@@ -41,6 +41,47 @@ export const GET_ALL_POSTS = gql`
     }
   }
 `;
+export const GET_USER_POSTS = gql`
+  query MyQuery($id: ID!) {
+    getTalkZ_postListByUserId(id:$id) {
+      talkZ_subtalkz {
+        topic
+      }
+      body
+      created_at
+      id
+      subtalkz_id
+      media
+
+      title
+      username
+      talkZ_user {
+        email
+        id
+        image
+        name
+      }
+      talkz_commentList {
+        username
+        text
+        post_id
+        id
+        created_at
+        talkZ_user {
+          image
+          id
+          name
+        }
+      }
+      talkz_voteList {
+        upvote
+        username
+        id
+        post_id
+      }
+    }
+  }
+`;
 
 export const GET_SUBTALKZ_BY_TOPIC = gql`
   query MyQuery($topic: String!) {
