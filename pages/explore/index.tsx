@@ -23,11 +23,11 @@ const ExplorePage = () => {
       },
     })
   : useQuery(GET_ALL_SUBTALKZ);
-  // const { data: subtalkz } = useQuery(SEARCH_SUBTALKZ, {
-  //   variables: {
-  //     q: `%${q}%`,
-  //   },
-  // });
+  const { data: subtalkz } = useQuery(SEARCH_SUBTALKZ, {
+    variables: {
+      q: `%${q}%`,
+    },
+  });
 // console.log(subtalkz);
 
  
@@ -43,7 +43,7 @@ const ExplorePage = () => {
         <div className="space-y-4">
           {q ? (
             <>
-              {/* <SubtalkzList items={subtalkz?.getTalkZ_subtalkzListBySearch} /> */}
+              <SubtalkzList items={subtalkz?.getTalkZ_subtalkzListBySearch} />
 
               <PostsList posts={items?.getTalkZ_postListBySearch} />
             </>
