@@ -29,7 +29,7 @@ const Home: NextPage = () => {
             }})
             console.log(getTalkz_userListByEmail)
 
-            const userExist = getTalkz_userListByEmail.length > 0;
+            const userExist = getTalkz_userListByEmail?.length > 0;
 
             if(!userExist) {
                await addUser({
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
       }
 
       addNewUser();
-  },[session])
+  },[])
 
   return (
     <div className="max-w-7xl mx-auto">
