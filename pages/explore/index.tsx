@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Post from "../../components/Post";
 import SubtalkzItem from "../../components/SubtalkzItem";
+import SubtalkzList from "../../components/SubtalkzList";
 import {
   GET_ALL_SUBTALKZ,
   SEARCH_POSTS,
@@ -39,11 +40,8 @@ const ExplorePage = () => {
         <div className="space-y-4">
           {q ? (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4">
-                {subtalkz?.getTalkZ_subtalkzListBySearch?.map((item:Subtalkz)=>(
-                  <SubtalkzItem item={item} key={item.id} />
-                ))}
-              </div>
+              <SubtalkzList items={subtalkz?.getTalkZ_subtalkzListBySearch} />
+        
               <div className="flex flex-col gap-y-4">
                 {items?.getTalkZ_postListBySearch?.map(
                   (post: IPost, i: number) => (
@@ -54,17 +52,11 @@ const ExplorePage = () => {
             </>
           ) : (
             <div>
-              <h1 className="text-gray-400 font-bold text-2xl mb-4 text-center ">
+              <h1 className="text-gray-400 text-lg font-bold md:text-2xl mb-4 text-center ">
                 Select topics you're interested in
               </h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4">
-                {items?.getTalkZ_subtalkzList?.map(
-                  (item: Subtalkz, i: number) => (
-                
-                      <SubtalkzItem key={i} item={item} />
-                  )
-                )}
-              </div>
+              <SubtalkzList items={items?.getTalkZ_subtalkzList} />
+               
             </div>
           )}
         </div>

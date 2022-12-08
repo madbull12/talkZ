@@ -43,16 +43,16 @@ export const ADD_NEW_USER = gql`
     mutation MyMutation(
         $name:String!
         $email:String!
-        $media:String!
+        $image:String!
     ) {
         insertTalkz_user(
             name:$name
             email:$email
-            image:$media
+            image:$image
         ) {
             name
             email
-            media
+            image
         }
     }
 `

@@ -14,6 +14,7 @@ import { GET_USER_BY_EMAIL } from '../graphql/queries'
 
 const Home: NextPage = () => {
   const { data:session } = useSession();
+  console.log(session)
 
   const [addUser] = useMutation(ADD_NEW_USER);
   console.log(session?.user?.email)

@@ -13,13 +13,13 @@ const SignInPage = () => {
         <span>Sign in with Google</span>
         
       </button>
-      <button
+      {/* <button
         onClick={() => signIn("github")}
         className="text-gray-400 items-center gap-x-2 flex   font-semibold text-xs sm:text-sm bg-[#1E293B] border-t rounded-xl whitespace-nowrap border-gray-700 md:text-base px-2 md:px-4 p-[4px] sm:py-2 shadow-md"
       >
          <BsGithub />
         <span>Sign in with Github</span>
-      </button>
+      </button> */}
     </div>
   );
 };
