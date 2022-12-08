@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Post from "../../components/Post";
+import PostsList from "../../components/PostsList";
 import SubtalkzItem from "../../components/SubtalkzItem";
 import SubtalkzList from "../../components/SubtalkzList";
 import {
@@ -41,14 +42,8 @@ const ExplorePage = () => {
           {q ? (
             <>
               <SubtalkzList items={subtalkz?.getTalkZ_subtalkzListBySearch} />
-        
-              <div className="flex flex-col gap-y-4">
-                {items?.getTalkZ_postListBySearch?.map(
-                  (post: IPost, i: number) => (
-                    <Post post={post} key={i} />
-                  )
-                )}
-              </div>
+
+              <PostsList posts={items?.getTalkZ_postListBySearch} />
             </>
           ) : (
             <div>
@@ -56,7 +51,6 @@ const ExplorePage = () => {
                 Select topics you're interested in
               </h1>
               <SubtalkzList items={items?.getTalkZ_subtalkzList} />
-               
             </div>
           )}
         </div>

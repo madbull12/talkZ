@@ -4,6 +4,7 @@ import { GET_ALL_POSTS, GET_POST_BY_TOPIC } from "../graphql/queries";
 import { IPost } from "../interface";
 import Post from "./Post";
 import { DotSpinner } from "@uiball/loaders";
+import PostsList from "./PostsList";
 
 type Props = {
   topic?: string;
