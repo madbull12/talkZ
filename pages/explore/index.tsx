@@ -16,19 +16,21 @@ import { IPost, Subtalkz } from "../../interface";
 const ExplorePage = () => {
   const router = useRouter();
   const { q } = router.query;
+  const { data: items } = q
+  ? useQuery(SEARCH_POSTS, {
+      variables: {
+        q: `%${q}%`,
+      },
+    })
+  : useQuery(GET_ALL_SUBTALKZ);
   const { data: subtalkz } = useQuery(SEARCH_SUBTALKZ, {
     variables: {
       q: `%${q}%`,
     },
   });
-  const { data: items } = q
-    ? useQuery(SEARCH_POSTS, {
-        variables: {
-          q: `%${q}%`,
-        },
-      })
-    : useQuery(GET_ALL_SUBTALKZ);
-  console.log(subtalkz);
+console.log(subtalkz);
+
+ 
 
   return (
     <div className="max-w-7xl mx-auto">
