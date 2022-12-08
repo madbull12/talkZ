@@ -32,7 +32,7 @@ const Home: NextPage = () => {
             const userExist = getTalkz_userListByEmail.length > 0;
 
             if(!userExist) {
-              const { data: { insertTalkz_user } } = await addUser({
+               await addUser({
                 variables:{
                   name:session?.user?.name,
                   email:session?.user?.email,
