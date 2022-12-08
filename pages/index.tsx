@@ -22,14 +22,14 @@ const Home: NextPage = () => {
       const addNewUser = async() => {
         try {
           if(session) {
-            const { data: { getTalkz_userListByEmail } } = await client.query({
+            const { data } = await client.query({
               query: GET_USER_BY_EMAIL,
               variables: {
                   email:session?.user?.email
             }})
-            console.log(getTalkz_userListByEmail)
+            console.log(data, 'dsds')
 
-            const userExist = getTalkz_userListByEmail?.length > 0;
+            const userExist = data?.getTalkz_userByEmail !== null;
 
             if(!userExist) {
                await addUser({
@@ -39,10 +39,10 @@ const Home: NextPage = () => {
                   image:session?.user?.image
                 }
               })
-            } else {
-              return 
-            }
+            } 
 
+          }else {
+            console.log("nothing")
           }
     
         } catch(err) {

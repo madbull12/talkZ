@@ -11,7 +11,7 @@ const Sidebar = () => {
     <div className=" lg:fixed w-full lg:pt-14  lg:w-[220px] space-y-2 lg:block top-4 md:top-10 lg:top-16 lg:h-screen  px-4 pt-16  md:pt-20 z-[100] text-gray-400 bg-transparent">
       <p className="text-sm font-bold hidden lg:block">MENU</p>
       <ul className="lg:space-y-3   flex lg:flex-col w-full justify-center space-x-8 lg:space-x-0">
-        <Link href="/">
+        <Link href="/" legacyBehavior>
           <span
             className={` flex items-center cursor-pointer gap-x-2 ${
               router.pathname === "/" ? "text-[#0EA5E9]  font-bold" : ""
@@ -22,7 +22,7 @@ const Sidebar = () => {
           </span>
         </Link>
 
-        <Link href="/explore">
+        <Link href="/explore" legacyBehavior>
           <span
             className={`flex cursor-pointer items-center gap-x-2 ${
               router.pathname === "/explore" ? "text-[#0EA5E9] font-bold" : ""
@@ -34,7 +34,7 @@ const Sidebar = () => {
         </Link>
 
         {session ? (
-          <Link href={`/user/posts`}>
+          <Link href={`/user/posts`} legacyBehavior>
             <span className={`flex items-center gap-x-2 cursor-pointer`}>
               <MdOutlineQuestionAnswer className="text-2xl  min-w-[280px]:text-3xl lg:text-xl" />
 

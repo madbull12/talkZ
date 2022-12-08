@@ -109,74 +109,70 @@ const Post = ({ post }: _IPost) => {
 
 
 
-  return (
-    <>
-    {loading && (
-        <div className="flex items-center justify-center pt-4">
-            <DotSpinner 
-                size={40}
-                speed={0.9} 
-                color="#0EA5E9" 
-                    
-            />
-        </div>
-    )}
-        <Link href={`/post/${post?.id}`} >
-            <div className="bg-[#1E293B]  text-gray-400 shadow-sm cursor-pointer group-hover:bg-[#1b2433] transition-all ease-in-out duration-100 border-b border-gray-700 border-r border-r-gray-800 rounded-md py-1 px-2 min-w-[280px]:py-2 min-w-[280px]:px-4">
-                <div className="flex space-x-2">
-                    <div className="flex-col items-center flex">
-                        <BsArrowUpShort className={`text-xl hover:text-[#0EA5E9] rounded-full ${vote && "text-[#0EA5E9]"}`}  onClick={()=>upVote(true)} />
-                        <span className=" text-sm">{displayVotes(data?.getTalkz_voteUsingPost_id)}</span>
-                        <BsArrowDownShort className={`text-xl hover:text-[#0EA5E9] rounded-full ${vote===false && "text-[#0EA5E9]"}`} onClick={()=>upVote(false)} />
-                    </div>
-                    <div className="space-y-2 flex-1 text-sm md:text-base">
-                        <div className="flex justify-between items-center ">
-                            <h1 className="text-lg md:text-xl font-semibold">
-                                {post?.title}
-                            </h1>
-                            <Image src={post?.talkZ_user?.image || "https://i.pinimg.com/564x/a5/f6/47/a5f647e37b2573fc3d564ed0be08d500.jpg"} alt={post?.talkZ_user?.name} width={35} height={35} className="rounded-full "  />
-                        </div>
-                    
-                    
-                        <p>
-                            {post?.body}
-                        </p>
-                        {post?.media && (
-                            <img src={post.media} alt={post.title} className="   object-cover  mx-auto "  />
-                        )}
-                        <div className="flex  gap-x-2 whitespace-nowrap flex-col items-start min-w-[280px]:items-center  min-w-[280px]:flex-row justify-between">
-                            <div className="flex flex-col md:flex-row gap-x-2">
-                                <Link href={`/explore/${post?.talkZ_subtalkz?.topic}`}>
-                                    <span className="text-gray-500 hover:underline hover:text-[#0ea5e9]">t/{post?.talkZ_subtalkz?.topic}</span>
-                                
-                                </Link>
-                            <span className="font-semibold">Posted by <span className="text-[#0EA5E9]">{post?.username}</span></span>
-                            </div>
-                           
-                            <div className="text-gray-700 text-sm font-medium">
-                                <TimeAgo
-                                    datetime={post?.created_at}
-                                />
-                            </div>
-        
-                        </div>
-                        <div className="flex items-center gap-x-1 cursor-pointer hover:bg-gray-700 px-2 w-[45px] rounded-lg" onClick={(e)=>{
-                            e.stopPropagation();
-                            setOpenComment(!openComment)
-                        }}>
-                            <BiCommentDetail />
-                            <span>{post?.talkz_commentList?.length}</span>
-                        </div>
-        
-                    </div>
-                    
-                </div>
-            </div>
-        </Link>
-    </>
-    
-   
-  )
+  return <>
+  {loading && (
+      <div className="flex items-center justify-center pt-4">
+          <DotSpinner 
+              size={40}
+              speed={0.9} 
+              color="#0EA5E9" 
+                  
+          />
+      </div>
+  )}
+      <Link legacyBehavior href={`/post/${post?.id}`} >
+          <div className="bg-[#1E293B]  text-gray-400 shadow-sm cursor-pointer group-hover:bg-[#1b2433] transition-all ease-in-out duration-100 border-b border-gray-700 border-r border-r-gray-800 rounded-md py-1 px-2 min-w-[280px]:py-2 min-w-[280px]:px-4">
+              <div className="flex space-x-2">
+                  <div className="flex-col items-center flex">
+                      <BsArrowUpShort className={`text-xl hover:text-[#0EA5E9] rounded-full ${vote && "text-[#0EA5E9]"}`}  onClick={()=>upVote(true)} />
+                      <span className=" text-sm">{displayVotes(data?.getTalkz_voteUsingPost_id)}</span>
+                      <BsArrowDownShort className={`text-xl hover:text-[#0EA5E9] rounded-full ${vote===false && "text-[#0EA5E9]"}`} onClick={()=>upVote(false)} />
+                  </div>
+                  <div className="space-y-2 flex-1 text-sm md:text-base">
+                      <div className="flex justify-between items-center ">
+                          <h1 className="text-lg md:text-xl font-semibold">
+                              {post?.title}
+                          </h1>
+                          <Image src={post?.talkZ_user?.image || "https://i.pinimg.com/564x/a5/f6/47/a5f647e37b2573fc3d564ed0be08d500.jpg"} alt={post?.talkZ_user?.name} width={35} height={35} className="rounded-full "  />
+                      </div>
+                  
+                  
+                      <p>
+                          {post?.body}
+                      </p>
+                      {post?.media && (
+                          <img src={post.media} alt={post.title} className="   object-cover  mx-auto "  />
+                      )}
+                      <div className="flex  gap-x-2 whitespace-nowrap flex-col items-start min-w-[280px]:items-center  min-w-[280px]:flex-row justify-between">
+                          <div className="flex flex-col md:flex-row gap-x-2">
+                              <Link href={`/explore/${post?.talkZ_subtalkz?.topic}`} legacyBehavior>
+                                  <span className="text-gray-500 hover:underline hover:text-[#0ea5e9]">t/{post?.talkZ_subtalkz?.topic}</span>
+                              
+                              </Link>
+                          <span className="font-semibold">Posted by <span className="text-[#0EA5E9]">{post?.username}</span></span>
+                          </div>
+                         
+                          <div className="text-gray-700 text-sm font-medium">
+                              <TimeAgo
+                                  datetime={post?.created_at}
+                              />
+                          </div>
+      
+                      </div>
+                      <div className="flex items-center gap-x-1 cursor-pointer hover:bg-gray-700 px-2 w-[45px] rounded-lg" onClick={(e)=>{
+                          e.stopPropagation();
+                          setOpenComment(!openComment)
+                      }}>
+                          <BiCommentDetail />
+                          <span>{post?.talkz_commentList?.length}</span>
+                      </div>
+      
+                  </div>
+                  
+              </div>
+          </div>
+      </Link>
+  </>;
 }
 
 export default Post
