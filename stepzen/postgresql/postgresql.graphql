@@ -247,7 +247,7 @@ These are some examples of mutations generated from the schema. Feel free to mod
 """
 type Mutation {
   insertTalkZ_post(
-    media: String!
+    media: String
     subtalkz_id: ID!
     body: String!
     title: String!

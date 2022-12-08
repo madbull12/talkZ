@@ -65,7 +65,7 @@ const CreatePost = ({ topic }: Props) => {
     //     body,
     //     imageUrl
     // })
-    let media;
+    let media = null;
     const toastId = toast.loading("Creating a new post");
     if(selectedFile) {
         const formData = new FormData();
