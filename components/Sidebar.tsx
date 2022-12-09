@@ -35,7 +35,11 @@ const Sidebar = () => {
 
         {session ? (
           <Link href={`/user/posts`} legacyBehavior>
-            <span className={`flex items-center gap-x-2 cursor-pointer`}>
+            <span
+              className={`flex cursor-pointer items-center gap-x-2 ${
+                router.pathname === "/user/posts" ? "text-[#0EA5E9] font-bold" : ""
+              }`}
+            >
               <MdOutlineQuestionAnswer className="text-2xl  min-w-[280px]:text-3xl lg:text-xl" />
 
               <span className=" hidden lg:block">Your Posts</span>
