@@ -237,7 +237,7 @@ const CreatePost = ({ topic }: Props) => {
                 {(selectedFile ) ? (
                   <>
                     {selectedFile.type === "video/mp4" ? (
-                      <div className="relative w-1/2 h-full">
+                      <div className="relative w-full mx-auto h-full">
                         <video
                           controls
                           className="relative h-full w-full rounded-2xl"
@@ -252,7 +252,7 @@ const CreatePost = ({ topic }: Props) => {
                         </button>
                       </div>
                     ) : (
-                      <div className="relative mx-auto w-1/2 h-96">
+                      <div className="relative mx-auto w-full h-96">
                         <img
                           src={preview || ""}
                           className="w-full h-full rounded-lg object-cover "
