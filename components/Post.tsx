@@ -156,7 +156,7 @@ const Post = ({ post }: _IPost) => {
                   ) : (
                     <video
                       controls
-                      className="relative h-full w-full rounded-2xl"
+                      className="relative w-full rounded-2xl"
                     >
                       <source src={post.media} type="video/mp4"></source>
                     </video>
